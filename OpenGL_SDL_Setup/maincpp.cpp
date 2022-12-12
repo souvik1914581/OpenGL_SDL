@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <gl/glew.h>
 #include <iostream>
 
 constexpr int SCREEN_WIDTH{ 1080 };
