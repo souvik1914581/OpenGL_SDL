@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+/.vs
+/OpenGL_SDL_Setup/.vs/OpenGL_SDL_Setup
+/OpenGL_SDL_Setup/x64/Debug
