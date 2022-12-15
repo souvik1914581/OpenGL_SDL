@@ -270,8 +270,9 @@ void render()
 		/*Bind the VAO so that OpenGL knows how to use it*/
 		glBindVertexArray(gVAO);
 
-		/*Draw the triangle using the GL_TRIANGLES primitive*/
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		/*Draw the three points using the GL_TRIANGLES primitive*/
+		glPointSize(10.0f);
+		glDrawArrays(GL_POINTS,0,3);
 
 	}
 }
