@@ -19,7 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="maincpp.cpp" />
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -74,12 +75,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\vclib\glew-2.1.0\glew-2.1.0\include;C:\vclib\SDL2-devel-2.26.1-VC\SDL2-2.26.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\vclib\glew-2.1.0\glew-2.1.0\lib\Debug\x64;C:\vclib\SDL2-devel-2.26.1-VC\SDL2-2.26.1\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\souvi\source\repos\OpenGLUsingSDL\OpenGL_SDL_Setup\Libraries\include;C:\vclib\SDL2-devel-2.26.1-VC\SDL2-2.26.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\souvi\source\repos\OpenGLUsingSDL\OpenGL_SDL_Setup\Libraries\lib;C:\vclib\SDL2-devel-2.26.1-VC\SDL2-2.26.1\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\vclib\glew-2.1.0\glew-2.1.0\include;C:\vclib\SDL2-devel-2.26.1-VC\SDL2-2.26.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\vclib\glew-2.1.0\glew-2.1.0\lib\Debug\x64;C:\vclib\SDL2-devel-2.26.1-VC\SDL2-2.26.1\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\souvi\source\repos\OpenGLUsingSDL\OpenGL_SDL_Setup\Libraries\include;C:\vclib\SDL2-devel-2.26.1-VC\SDL2-2.26.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\souvi\source\repos\OpenGLUsingSDL\OpenGL_SDL_Setup\Libraries\lib;C:\vclib\SDL2-devel-2.26.1-VC\SDL2-2.26.1\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -91,7 +92,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -120,7 +121,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
