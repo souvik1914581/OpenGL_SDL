@@ -33,3 +33,5 @@
 /.vs
 /OpenGL_SDL_Setup/.vs/OpenGL_SDL_Setup
 /OpenGL_SDL_Setup/x64/Debug
+/Exercises/TriangleExercises/.vs/TriangleExercises
+/Exercises/TriangleExercises/x64/Debug
