@@ -32,6 +32,9 @@ void close();
 void printProgramLog(GLuint program);
 void printShaderLog(GLuint shader);
 
+#define QUAD_INDEX		0
+#define OUTLINE_INDEX	1
+
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
 
@@ -41,11 +44,14 @@ SDL_GLContext gContext;
 //Render flag
 bool gRenderTriangle = true;
 
+//Draw outline
+bool gDrawOutline = false;
+
 //Graphics program
 GLuint gProgramID = 0;
 GLint gVertexPos2DLocation = -1;
-GLuint gVBO[1];
-GLuint gVAO[1];
+GLuint gVBO[2];
+GLuint gVAO[2];
 
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
@@ -214,36 +220,61 @@ bool initGL()
 						0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,		//lower right corner
 					};
 
-					/*Generate the VAO and VBO with only 2 objects each*/
+					GLfloat outlineVertices[] =
+					{
+						-0.5f,-0.5f,		//lower left
+						-0.5f,0.5f,			//upper left
+						0.5f,0.5f,			//upper right
+						0.5f,-0.5f			//lower right
+					};
+
+					/*Generate the VAO and VBO with  2 objects each*/
 					glGenVertexArrays(1, gVAO);
 					glGenBuffers(1, gVBO);
 
 					/*now lets bind the VAO, make the VAO the current Vertex Array Object by binding it*/
-					glBindVertexArray(gVAO[0]);
+					glBindVertexArray(gVAO[QUAD_INDEX]);
 
 					/*Bind the VBO specifying its a GL_ARRAY_BUFFER */
-					glBindBuffer(GL_ARRAY_BUFFER, gVBO[0]);
+					glBindBuffer(GL_ARRAY_BUFFER, gVBO[QUAD_INDEX]);
 
 					/*store our vertices in the buffer*/
-					glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+					glBufferData(GL_ARRAY_BUFFER, sizeof(outlineVertices), outlineVertices, GL_STATIC_DRAW);
 
 					/*now lets configure VAO so that OpenGL knows how to read the VBO*/
 					glVertexAttribPointer(
-											0,	//Specifies the index of the generic vertex attribute to be modified
-											3,	//Specifies the number of components per generic vertex attribute. Must be 1, 2, 3, 4
+											QUAD_INDEX,	//Specifies the index of the generic vertex attribute to be modified
+											2,	//Specifies the number of components per generic vertex attribute. Must be 1, 2, 3, 4
 											GL_FLOAT, //data type
 											GL_FALSE,	//whether the vertex data is normalised
-											3 * sizeof(GLfloat),	//stride
+											2 * sizeof(GLfloat),	//stride
 											(void*)0);	//offset of the first generic vertex attribute in the array
 
 					/*Enable the Vertex Attribute so that OpenGL knows how to use it*/
-					glEnableVertexAttribArray(0);
+					glEnableVertexAttribArray(QUAD_INDEX);
 
-					/*Bind both the VBO and VAO to 0 so that we don't accidentally modify the VAO
-					 and VBO we created with a function*/
+					/*	Bind both the VBO and VAO to 0 so that we don't accidentally modify the VAO
+						and VBO we created with a function
+						Unbind 
+					 */
 					glBindBuffer(GL_ARRAY_BUFFER, 0);
 					glBindVertexArray(0);
 					
+
+					//glBindVertexArray(gVAO[OUTLINE_INDEX]);
+					//glBindBuffer(GL_ARRAY_BUFFER, gVBO[OUTLINE_INDEX]);
+					//glBufferData(GL_ARRAY_BUFFER, sizeof(outlineVertices), outlineVertices, GL_STATIC_DRAW);
+					//glVertexAttribPointer(OUTLINE_INDEX,
+					//	2,
+					//	GL_FLOAT,
+					//	GL_FALSE,
+					//	2 * sizeof(GLfloat),
+					//	(void*)0);
+					// 
+
+					///*Unbind*/
+					//glBindBuffer(GL_ARRAY_BUFFER, 0);
+					//glBindVertexArray(0);
 					success = true;
 			
 			}
@@ -256,9 +287,14 @@ bool initGL()
 void handleKeys(unsigned char key, int x, int y)
 {
 	//Toggle quad
-	if (key == 'q')
-	{
+	switch (key) {
+	case 'q':
 		gRenderTriangle = !gRenderTriangle;
+		break;
+	case 'l':
+		gDrawOutline = !gDrawOutline;
+		break;
+
 	}
 }
 
@@ -282,11 +318,32 @@ void render()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		/*Bind the VAO so that OpenGL knows how to use it*/
-		glBindVertexArray(gVAO[0]);
+		if (gDrawOutline) {
+			//glDisableVertexAttribArray(gVAO[QUAD_INDEX]);
 
-		/*Draw the quad points using the GL_TRIANGLES primitive*/
+			//glEnableVertexAttribArray(gVAO[OUTLINE_INDEX]);
+			//glBindBuffer(GL_ARRAY_BUFFER, gVBO[OUTLINE_INDEX]);
+			/*glVertexAttribPointer(OUTLINE_INDEX,
+				2,
+				GL_FLOAT,
+				GL_FALSE,
+				2 * sizeof(GLfloat),
+				(void*)0);*/
+			
+			glBindVertexArray(gVAO[QUAD_INDEX]);
+			glDrawArrays(GL_LINE_LOOP, 0, 4);
+		}
+			
+		else {
+			/*glDisableVertexAttribArray(gVAO[OUTLINE_INDEX]);
+			glEnableVertexAttribArray(gVAO[QUAD_INDEX]);
+			glBindVertexArray(gVAO[QUAD_INDEX]);
+			glDrawArrays(GL_TRIANGLES, 0, 6);*/
+		}
+			
+
 		
-		glDrawArrays(GL_TRIANGLES,0,6);
+		
 
 	}
 }
