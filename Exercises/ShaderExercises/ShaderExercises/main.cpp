@@ -139,7 +139,7 @@ int main(int argc, char** argv)
 			}
 		}
 
-		scale = pulsateSize ? SDL_sin(SDL_GetTicks()) : defaultScale;
+		scale = pulsateSize ? SDL_sin(SDL_GetTicks()/500.0f) : defaultScale;
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		
