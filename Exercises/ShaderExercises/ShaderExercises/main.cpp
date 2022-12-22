@@ -40,6 +40,7 @@ static GLuint indices[] =
 	1,2,3,
 	5,3,4
 };
+static constexpr float defaultScale{ 0.75f };
 
 int main(int argc, char** argv)
 {
@@ -107,6 +108,9 @@ int main(int argc, char** argv)
 	bool runProgram = true;
 	bool flipTriangle = false;
 	bool invertColor = false;
+	bool pulsateSize = false;
+	bool pulsateColor = false;
+	float scale = defaultScale;
 	while (runProgram)
 	{
 		SDL_Event e;
@@ -127,15 +131,21 @@ int main(int argc, char** argv)
 				{
 					invertColor = !invertColor;
 				}
+				else if (inputKey == 'p' || inputKey == 'P')
+				{
+					pulsateSize = !pulsateSize;
+				}
 					break;
 			}
 		}
+
+		scale = pulsateSize ? SDL_sin(SDL_GetTicks()) : defaultScale;
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		
 
 		shaderProgram.Activate();
-		glUniform1f(uniId, 0.75f);
+		glUniform1f(uniId, scale);
 		glUniform1i(flipId, flipTriangle);
 		glUniform1i(invertId, invertColor);
 
