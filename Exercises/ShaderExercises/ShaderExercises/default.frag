@@ -6,5 +6,6 @@ in vec3 color;
 
 void main()
 {
-	FragColor = vec4(color, 1.0f);
+	vec3 invertedColor = vec3(1.0f,1.0f,1.0f) - color;
+	FragColor = vec4(invertedColor, 1.0f);
 }

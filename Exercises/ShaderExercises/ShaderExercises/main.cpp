@@ -102,7 +102,10 @@ int main(int argc, char** argv)
 	ebo1.Unbind();
 
 	GLuint uniId = glGetUniformLocation(shaderProgram.ID, "scale");
+	GLuint flipId = glGetUniformLocation(shaderProgram.ID, "flip");
 	bool runProgram = true;
+	bool flipTriangle = false;
+	bool invertColor = false;
 	while (runProgram)
 	{
 		SDL_Event e;
@@ -117,6 +120,10 @@ int main(int argc, char** argv)
 				const auto& inputKey = e.text.text[0];
 				if (inputKey == 'q' || inputKey == 'Q')
 					runProgram = false;
+				else if (inputKey == 'f' || inputKey == 'F')
+					flipTriangle = !flipTriangle;
+				else if (inputKey == 'i' || inputKey == 'I')
+					invertColor = !invertColor;
 				break;
 			}
 		}
@@ -126,6 +133,10 @@ int main(int argc, char** argv)
 
 		shaderProgram.Activate();
 		glUniform1f(uniId, 0.5f);
+		if (flipTriangle)
+			glUniform1i(flipId, 1);
+		else
+			glUniform1i(flipId, 0);
 		glClear(GL_COLOR_BUFFER_BIT);
 		vao1.Bind();
 		glDrawElements(GL_TRIANGLES, 9,GL_UNSIGNED_INT, 0);

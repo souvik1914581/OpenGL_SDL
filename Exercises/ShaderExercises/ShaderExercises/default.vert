@@ -11,9 +11,14 @@ out vec3 color;
 
 //uniforms are like universal variables which can be used by any Shader and accessed from main() without VAO
 uniform float scale;
-
+uniform int flip;
 void main()
 {
-	gl_Position = vec4(aPos.x + aPos.x * scale, -aPos.y - aPos.y * scale, aPos.z + aPos.z * scale, 1.0);
+	float yPos = aPos.y + aPos.y * scale;
+	if(flip == 1)
+	{
+		yPos = -yPos;
+	}
+	gl_Position = vec4(aPos.x + aPos.x * scale,yPos, aPos.z + aPos.z * scale, 1.0);
 	color = aColor;
 }
