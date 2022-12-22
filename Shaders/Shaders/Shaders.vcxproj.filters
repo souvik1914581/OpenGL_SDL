@@ -21,9 +21,6 @@
     <ClInclude Include="EBO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="shaderClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -39,9 +36,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="shaderClass.cpp">

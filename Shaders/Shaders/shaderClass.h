@@ -9,6 +9,17 @@
 #include<cerrno>
 
 std::string get_file_contents(const char* filename);
+enum class ShaderType
+{
+	VERTEX_SHADER = 0,
+	FRAGMENT_SHADER,
+	PROGRAM,
+	MAX
+};
+
+std::string toString(ShaderType type);
+std::ostream& operator << (std::ostream& out, ShaderType type);
+
 
 class Shader
 {
@@ -22,5 +33,7 @@ public:
 	void Activate();
 	// Deletes the Shader Program
 	void Delete();
+private:
+	void CheckCompilationErrors(GLuint shaderId, ShaderType type);
 };
 #endif
