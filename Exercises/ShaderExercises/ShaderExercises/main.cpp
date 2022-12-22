@@ -135,7 +135,7 @@ int main(int argc, char** argv)
 		
 
 		shaderProgram.Activate();
-		glUniform1f(uniId, 0.5f);
+		glUniform1f(uniId, 0.75f);
 		glUniform1i(flipId, flipTriangle);
 		glUniform1i(invertId, invertColor);
 

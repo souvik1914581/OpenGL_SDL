@@ -9,6 +9,7 @@ layout (location = 1) in vec3 aColor;
 //color is handled by Fragment Shader, so Vertex Shader needs to out it
 out vec3 color;
 out float invertColor;
+out float fsScale;
 
 //uniforms are like universal variables which can be used by any Shader and accessed from main() without VAO
 uniform float scale;
@@ -31,4 +32,5 @@ void main()
 	{
 		invertColor = 0.0f;
 	}
+	fsScale = scale;
 }
