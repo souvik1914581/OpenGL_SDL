@@ -103,6 +103,7 @@ int main(int argc, char** argv)
 
 	GLuint uniId = glGetUniformLocation(shaderProgram.ID, "scale");
 	GLuint flipId = glGetUniformLocation(shaderProgram.ID, "flip");
+	GLuint invertId = glGetUniformLocation(shaderProgram.ID, "invertColorFlag");
 	bool runProgram = true;
 	bool flipTriangle = false;
 	bool invertColor = false;
@@ -123,8 +124,10 @@ int main(int argc, char** argv)
 				else if (inputKey == 'f' || inputKey == 'F')
 					flipTriangle = !flipTriangle;
 				else if (inputKey == 'i' || inputKey == 'I')
+				{
 					invertColor = !invertColor;
-				break;
+				}
+					break;
 			}
 		}
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -133,10 +136,9 @@ int main(int argc, char** argv)
 
 		shaderProgram.Activate();
 		glUniform1f(uniId, 0.5f);
-		if (flipTriangle)
-			glUniform1i(flipId, 1);
-		else
-			glUniform1i(flipId, 0);
+		glUniform1i(flipId, flipTriangle);
+		glUniform1i(invertId, invertColor);
+
 		glClear(GL_COLOR_BUFFER_BIT);
 		vao1.Bind();
 		glDrawElements(GL_TRIANGLES, 9,GL_UNSIGNED_INT, 0);
