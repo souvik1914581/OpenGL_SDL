@@ -6,18 +6,18 @@
 #include "VBO.h"
 #include "EBO.h"
 
-static constexpr unsigned WINDOW_WIDTH{ 640 };
-static constexpr unsigned WINDOW_HEIGHT{ 480 };
+static constexpr unsigned WINDOW_WIDTH{ 1920 };
+static constexpr unsigned WINDOW_HEIGHT{ 1080 };
 static const std::string WINDOW_TITLE{ "GTA 7" };
 
 
 static const GLfloat vertices[]{
 
 	//X		Y					Z						R		G		B
-	-0.5f,	-0.5f * float(sqrt(3)/2.0f),	0.0f,					0.07f,	0.03f,	0.01f,	//Lower Left
-	0.5f,   -0.5f * float(sqrt(3)/2.0f),   0.0f,					0.07f,	0.03f,	0.01f,	//Lower right
-	0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.07f,	0.03f,	0.01f,	//Upper right
-	-0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.07f,	0.03f,	0.01f,	//Upper left
+	-0.5f,	-0.5f * float(sqrt(3)/2.0f),	0.0f,					0.05f,	0.05f,	0.8f,	//Lower Left
+	0.5f,   -0.5f * float(sqrt(3)/2.0f),   0.0f,					0.8f,	0.05f,	0.05f,	//Lower right
+	0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.05f,	0.05f,	0.8f,	//Upper right
+	-0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.8f,	0.05f,	0.01f,	//Upper left
 };
 
 static constexpr GLuint indices[]{
@@ -96,8 +96,10 @@ int main(int argc, char** argv) {
 	}
 	
 	GLint scaleId = glGetUniformLocation(shaderProgram.ProgramId(), "scale");
-	
+	GLint pulsateId = glGetUniformLocation(shaderProgram.ProgramId(), "pulsateFactor");
 	bool runLoop = true;
+	bool pulsateColors = false;
+	float pulsateFactor = 1.0f;
 	SDL_StartTextInput();
 
 	while (runLoop) {
@@ -115,16 +117,23 @@ int main(int argc, char** argv) {
 				case 'Q':
 					runLoop = false;
 					break;
-
+				case 'p':
+				case 'P':
+					pulsateColors = !pulsateColors;
+					break;
 				}
 			}
 
 		}//SDL event handler
+		
+		pulsateFactor = pulsateColors ? float(SDL_sin(SDL_GetTicks() / 500.0f)) : 1.0f;
+
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		shaderProgram.Activate();
 		glUniform1f(scaleId, 0.5f);
+		glUniform1f(pulsateId, pulsateFactor);
 		glClear(GL_COLOR_BUFFER_BIT);
 		vao1.Bind();
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
