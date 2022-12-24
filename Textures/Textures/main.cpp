@@ -6,18 +6,18 @@
 #include "VBO.h"
 #include "EBO.h"
 
-static constexpr unsigned WINDOW_WIDTH{ 1920 };
-static constexpr unsigned WINDOW_HEIGHT{ 1080 };
+static constexpr unsigned WINDOW_WIDTH{ 640 };
+static constexpr unsigned WINDOW_HEIGHT{ 480 };
 static const std::string WINDOW_TITLE{ "GTA 7" };
 
 
 static const GLfloat vertices[]{
 
 	//X		Y					Z						R		G		B
-	-0.5f,	-0.5f * float(sqrt(3)/2.0f),	0.0f,					0.05f,	0.05f,	0.8f,	//Lower Left
-	0.5f,   -0.5f * float(sqrt(3)/2.0f),   0.0f,					0.8f,	0.05f,	0.05f,	//Lower right
-	0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.05f,	0.05f,	0.8f,	//Upper right
-	-0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.8f,	0.05f,	0.01f,	//Upper left
+	-0.5f,	-0.5f * float(sqrt(3)/2.0f),	0.0f,					0.1f,	0.8f,	0.8f,	//Lower Left
+	0.5f,   -0.5f * float(sqrt(3)/2.0f),   0.0f,					0.1f,	1.0f,	0.1f,	//Lower right
+	0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.1f,	0.1f,	1.0f,	//Upper right
+	-0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					1.0f,	0.1f,	0.1f,	//Upper left
 };
 
 static constexpr GLuint indices[]{
@@ -100,6 +100,7 @@ int main(int argc, char** argv) {
 	bool runLoop = true;
 	bool pulsateColors = false;
 	float pulsateFactor = 1.0f;
+	float pulsePeriodMs = 500.0f;	//500ms
 	SDL_StartTextInput();
 
 	while (runLoop) {
@@ -120,13 +121,19 @@ int main(int argc, char** argv) {
 				case 'p':
 				case 'P':
 					pulsateColors = !pulsateColors;
+					//std::cout << "pulse: " << pulsateColors << std::endl;
 					break;
 				}
+			case SDL_MOUSEWHEEL:
+				pulsePeriodMs += e.wheel.preciseY;
+				//std::cout << "pulsePeriod " << pulsePeriodMs << std::endl;
+				break;
+			
 			}
 
 		}//SDL event handler
 		
-		pulsateFactor = pulsateColors ? float(SDL_sin(SDL_GetTicks() / 500.0f)) : 1.0f;
+		pulsateFactor = pulsateColors ? float(SDL_sin(SDL_GetTicks() / pulsePeriodMs)) : 1.0f;
 
 
 		glClear(GL_COLOR_BUFFER_BIT);
