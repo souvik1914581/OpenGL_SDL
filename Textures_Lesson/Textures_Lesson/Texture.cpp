@@ -7,6 +7,9 @@ Texture::Texture(const char* filename,unsigned width, unsigned height, unsigned 
 
 int Texture::Load()
 {
+	//stbi reads images from top left to bottom right, which is opposite to OpenGL
+	stbi_set_flip_vertically_on_load(true);
+
 	m_imageData = (char*) (stbi_load(FileName(), &m_width, &m_height, &m_numColChannels, 0));
 	int retVal = (nullptr == m_imageData) ? -1 : 0;
 	return retVal;
