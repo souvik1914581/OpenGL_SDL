@@ -49,3 +49,6 @@
 /Textures/Textures/.vs/Textures
 /Textures/Textures/x64/Debug
 /Exercises/ShaderExercises/ShaderExercises
+/Textures_Lesson/Textures_Lesson/.vs/Textures_Lesson
+/Textures_Lesson/Textures_Lesson/x64/Debug
+*.sln
