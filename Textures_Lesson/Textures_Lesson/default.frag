@@ -13,5 +13,5 @@ in float fs_pulsateColor;
 void main()
 {
 	//FragColor = vec4(color * fs_pulsateColor, 1.0f);
-	FragColor = texture(tex0,texCoordinates);
+	FragColor = texture(tex0,vec2(texCoordinates.x * fs_pulsateColor,texCoordinates.y * fs_pulsateColor));
 }

@@ -18,9 +18,9 @@ static const GLfloat vertices[]{
 
 	//X		Y					Z						R		G		B					texture coordinates
 	-0.5f,	-0.5f * float(sqrt(3)/2.0f),	0.0f,					0.1f,	0.8f,	0.8f,	0.0f,0.0f,//Lower Left
-	0.5f,   -0.5f * float(sqrt(3)/2.0f),   0.0f,					0.1f,	1.0f,	0.1f,	1.0f,0.0f,//Lower right
-	0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.1f,	0.1f,	1.0f,	1.0f,1.0f,//Upper right
-	-0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					1.0f,	0.1f,	0.1f,	0.0f,1.0f //Upper left
+	0.5f,   -0.5f * float(sqrt(3)/2.0f),   0.0f,					0.1f,	1.0f,	0.1f,	2.0f,0.0f,//Lower right
+	0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.1f,	0.1f,	1.0f,	2.0f,2.0f,//Upper right
+	-0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					1.0f,	0.1f,	0.1f,	0.0f,2.0f //Upper left
 };
 
 static constexpr GLuint indices[]{
@@ -174,7 +174,7 @@ int main(int argc, char** argv) {
 				}
 			case SDL_MOUSEWHEEL:
 				pulsePeriodMs += e.wheel.preciseY;
-				//std::cout << "pulsePeriod " << pulsePeriodMs << std::endl;
+				std::cout << "pulsePeriod " << pulsePeriodMs << std::endl;
 				break;
 			
 			}
