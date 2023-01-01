@@ -75,12 +75,11 @@ int main(int argc, char** argv) {
 
 	/*Init GL stuff here*/
 	VAO vao1;
-	
 
 	//bind
 	vao1.Bind();
 	VBO vbo1;
-	EBO ebo1;
+	EBO ebo1; 
 	vbo1.Load(vertices, sizeof(vertices));
 	ebo1.Load(indices, sizeof(indices));
 
@@ -147,6 +146,18 @@ int main(int argc, char** argv) {
 	GLint pulsateId = glGetUniformLocation(shaderProgram.ProgramId(), "pulsateFactor");
 	GLuint tex0Uni = glGetUniformLocation(shaderProgram.ProgramId(), "tex0");
 
+	SSBO ssbo1;
+	shader_data shaderData{ 0 };
+
+	////set image width and height in shaderData structure
+	ssbo1.Bind();
+	shaderData.posArray[0] = 1.0f;
+	shaderData.posArray[1] = 2.0f;
+	ssbo1.Load(&shaderData, sizeof(shaderData));
+	constexpr int ssboBindPointIndex{ 2 };
+	ssbo1.BindToIndex(ssboBindPointIndex);
+	ssbo1.Unbind();
+
 	bool runLoop = true;
 	bool pulsateColors = false;
 	float pulsateFactor = 1.0f;
@@ -197,6 +208,25 @@ int main(int argc, char** argv) {
 		/*Bind the texture object in main loop*/
 		twoDimTexture.Bind();
 		vao1.Bind();
+		//write to SSBO
+#if 0	
+		ssbo1.Bind();
+		//1. find the storage block index
+		GLuint block_index = 0;
+		block_index = glGetProgramResourceIndex(shaderProgram.ProgramId(), GL_SHADER_STORAGE_BLOCK, "shader_data");
+		
+		//2.connect the shader storage block to the SSBO
+		GLuint ssbo_binding_point_index = 2;
+		glShaderStorageBlockBinding(shaderProgram.ProgramId(), block_index, ssbo_binding_point_index);
+		
+		
+		ssbo1.BindToIndex(ssbo_binding_point_index);
+		GLvoid* ptr = ssbo1.Map(GL_WRITE_ONLY);
+		shaderData.posArray[0] = 1.0f;
+		shaderData.posArray[1] = 1.0f;
+		shaderData.posArray[2] = 1.0f;
+		ssbo1.Unmap();
+#endif
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		SDL_GL_SwapWindow(mainWindow);

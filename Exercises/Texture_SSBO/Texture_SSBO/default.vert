@@ -1,4 +1,4 @@
- #version 330 core
+ #version 430 core
 
  //layout 0 is used for x,y coordinates
 layout (location = 0) in vec3 aPos;

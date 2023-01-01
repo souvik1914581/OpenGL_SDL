@@ -5,9 +5,7 @@
 static constexpr int MAX_TEX_WIDTH{ 1920 };
 static constexpr int MAX_TEX_HEIGHT{ 1080 };
 struct shader_data {
-	int tex_width{ 0 };
-	int tex_height{ 0 };
-	int tex_data[MAX_TEX_WIDTH * MAX_TEX_HEIGHT];
+	float posArray[4];
 };
 
 class SSBO
@@ -36,6 +34,10 @@ public:
 	void Bind() {
 		glBindBuffer(GL_SHADER_STORAGE_BUFFER, Id());
 		m_isBinded = true;
+	}
+
+	void BindToIndex(int index = 2) {
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, index, Id());
 	}
 
 	void Unbind() {
