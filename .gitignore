@@ -54,3 +54,7 @@
 *.sln
 /Exercises/Texture_SSBO/Texture_SSBO/.vs/Texture_SSBO
 /Exercises/Texture_SSBO/Texture_SSBO/x64/Debug
+/ComputeShader_101/Compute Shader_101/.vs/Compute Shader_101
+/ComputeShader_101/Compute Shader_101/x64/Debug
+*.aps
+*.rc
