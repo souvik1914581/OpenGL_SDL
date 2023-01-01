@@ -11,13 +11,15 @@ class Texture
 	int m_numColChannels{ 0 };
 	GLuint m_texture;
 	char* m_imageData{ nullptr };
+	GLenum m_textureType{ GL_TEXTURE_2D };
 	char* Image() { return m_imageData; }
 public:
-	Texture(const char* filename, unsigned width = 0, unsigned height = 0, unsigned colorChannels = 0);
+	Texture(const char* filename,GLenum textureType = GL_TEXTURE_2D, unsigned width = 0, unsigned height = 0, unsigned colorChannels = 0);
 	const char* FileName() const { return m_fileName; }
 	int Width() const { return m_width; }
 	int Height() const { return m_height; }
 	int Channels() const { return m_numColChannels; }
+	GLenum Type() const { return m_textureType; }
 	const char* Image() const { return m_imageData; }
 	int Load();
 	void Generate();
