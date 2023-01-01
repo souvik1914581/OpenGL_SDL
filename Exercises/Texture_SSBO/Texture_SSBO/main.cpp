@@ -7,6 +7,7 @@
 #include "EBO.h"
 #include <stb_image.h>
 #include "Texture.h"
+#include "SSBO.h"
 
 static constexpr unsigned WINDOW_WIDTH{ 640 };
 static constexpr unsigned WINDOW_HEIGHT{ 480 };
@@ -18,15 +19,17 @@ static const GLfloat vertices[]{
 
 	//X		Y					Z						R		G		B					texture coordinates
 	-0.5f,	-0.5f * float(sqrt(3)/2.0f),	0.0f,					0.1f,	0.8f,	0.8f,	0.0f,0.0f,//Lower Left
-	0.5f,   -0.5f * float(sqrt(3)/2.0f),   0.0f,					0.1f,	1.0f,	0.1f,	2.0f,0.0f,//Lower right
-	0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.1f,	0.1f,	1.0f,	2.0f,2.0f,//Upper right
-	-0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					1.0f,	0.1f,	0.1f,	0.0f,2.0f //Upper left
+	0.5f,   -0.5f * float(sqrt(3)/2.0f),   0.0f,					0.1f,	1.0f,	0.1f,	1.0f,0.0f,//Lower right
+	0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					0.1f,	0.1f,	1.0f,	1.0f,1.0f,//Upper right
+	-0.5f,	0.5f * float(sqrt(3)/2.0f),    0.0f,					1.0f,	0.1f,	0.1f,	0.0f,1.0f //Upper left
 };
 
 static constexpr GLuint indices[]{
 	0,1,3,
 	1,2,3
 };
+
+
 
 int main(int argc, char** argv) {
 	
@@ -53,7 +56,7 @@ int main(int argc, char** argv) {
 	//initialize OpenGL
 	//set GL version, core profile
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 	SDL_GLContext glContext =  SDL_GL_CreateContext(mainWindow);

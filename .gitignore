@@ -52,3 +52,5 @@
 /Textures_Lesson/Textures_Lesson/.vs/Textures_Lesson
 /Textures_Lesson/Textures_Lesson/x64/Debug
 *.sln
+/Exercises/Texture_SSBO/Texture_SSBO/.vs/Texture_SSBO
+/Exercises/Texture_SSBO/Texture_SSBO/x64/Debug
